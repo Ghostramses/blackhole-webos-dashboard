@@ -38,8 +38,7 @@ const MainPanel = kind({
     },
     onLogin: (ev, { username, password, onMessageChange, onChangeIndex }) => {
       login({ username, password })
-        .then(response => {
-          console.log(response);
+        .then(() => {
           onChangeIndex(1);
         })
         .catch(e => {
@@ -79,7 +78,6 @@ const MainPanel = kind({
     ...props
   }) => (
     <Panel {...props}>
-      {console.log(props)}
       <div className={css.loginForm}>
         <Image
           src={{ hd: BlackholeLogo, fhd: BlackholeLogo, uhd: BlackholeLogo }}

@@ -1,0 +1,75 @@
+.caseCutGraph {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 1em;
+
+  .tableContainer {
+    flex: 1;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    .chunkName {
+      text-align: center;
+    }
+
+    .tableScroller {
+      height: 43vh;
+      .cutTable {
+        border-radius: 10px;
+        color: #333;
+        //font-size: 12px;
+        font-weight: normal;
+        border: none;
+        border-collapse: collapse;
+        width: 100%;
+        max-width: 100%;
+        white-space: nowrap;
+        background-color: white;
+
+        td,
+        th {
+          text-align: center;
+          padding: 8px;
+        }
+
+        td {
+          border-right: 1px solid #f8f8f8;
+          //font-size: 12px;
+        }
+
+        &.morningTable {
+          thead th {
+            background-color: #6497d9;
+            color: #f8f8f8;
+          }
+
+          tr {
+            background-color: #e9e6f5;
+          }
+        }
+
+        &.eveningTable {
+          thead th {
+            background-color: #ffa229;
+            color: #f8f8f8;
+          }
+
+          tr {
+            background-color: #f5d9bc;
+          }
+        }
+
+        &.nightTable {
+          thead th {
+            background-color: #90ed7d;
+            color: #f8f8f8;
+          }
+
+          tr {
+            background-color: #cee0c5;
+          }
+        }
+      }
+    }
+  }
+}
