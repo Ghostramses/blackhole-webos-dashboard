@@ -1,3 +1,9 @@
 {
-  "api": { "url": "https://pruebas4.springlabsdevs.net/blackhole/api" }
+  "api": {
+    "url": "https://pruebas4.springlabsdevs.net/blackhole/api",
+    "socket": {
+      "url": "https://pruebas4.springlabsdevs.net",
+      "path": "/blackhole/socket.io"
+    }
+  }
 }

@@ -38,8 +38,21 @@ const MainPanel = kind({
     },
     onLogin: (ev, { username, password, onMessageChange, onChangeIndex }) => {
       login({ username, password })
-        .then(() => {
-          onChangeIndex(1);
+        .then(response => {
+          const perms = response.permissions;
+          localStorage.perms = perms; //eslint-disable-line
+          if (
+            (perms['case_cut_graph'] === 'R' &&
+              perms['events_graph'] === 'R') ||
+            perms['all']
+          ) {
+            onChangeIndex(1);
+          } else {
+            onMessageChange({
+              message:
+                'No cuenta con los permisos necesarios para ver el dashboard (Gráfica de evidencias y Cortes de T.I.)'
+            });
+          }
         })
         .catch(e => {
           console.error(e);
