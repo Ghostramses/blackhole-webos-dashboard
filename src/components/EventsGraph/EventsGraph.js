@@ -42,7 +42,7 @@ export default class EventsGraph extends Component {
       })
       .catch(e => console.error(e))
       .finally(() => {
-        this.timeoutId = setTimeout(() => {
+        this.timeoutIdClassificatedEvents = setTimeout(() => {
           this.getEvents();
         }, 1500);
       });
@@ -101,7 +101,7 @@ export default class EventsGraph extends Component {
   }
 
   componentWillUnmount() {
-    clearTimeout(this.timeoutId);
+    clearTimeout(this.timeoutIdClassificatedEvents);
     clearTimeout(this.timeoutIdAliveEvents);
   }
 }

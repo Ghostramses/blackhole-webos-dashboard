@@ -1,80 +1,52 @@
-import kind from '@enact/core/kind';
 import MoonstoneDecorator from '@enact/moonstone/MoonstoneDecorator';
 import Panels from '@enact/moonstone/Panels';
-import Changeable from '@enact/ui/Changeable';
-import React from 'react';
-import propTypes from 'prop-types';
+import React, { Component } from 'react';
 
 import MainPanel from '../views/MainPanel';
 import DashboardPanel from '../views/DashboardPanel';
 
-import css from './App.less';
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      index: 0,
+      showCloseNotification: false
+    };
+    this.onChangeIndex = this.onChangeIndex.bind(this);
+    this.onCloseAttemp = this.onCloseAttemp.bind(this);
+    this.onShowCloseNotificationChange =
+      this.onShowCloseNotificationChange.bind(this);
+  }
 
-const App = kind({
-  name: 'App',
+  onChangeIndex(index) {
+    this.setState({ index });
+  }
+  onShowCloseNotificationChange(showCloseNotification) {
+    this.setState({ showCloseNotification });
+  }
 
-  styles: {
-    css,
-    className: 'app'
-  },
-  props: {
-    index: propTypes.number,
-    onChangeIndex: propTypes.func,
-    showCloseNotification: propTypes.bool,
-    onShowCloseNotificationChange: propTypes.func
-  },
-  defaultProps: {
-    index: 0,
-    showCloseNotification: false
-  },
-  handlers: {
-    onChangeIndex: (index, { onChangeIndex }) => {
-      onChangeIndex({ index });
-    },
-    onCloseAttemp: (ev, { index, onShowCloseNotificationChange }) => {
-      if (index === 1) {
-        onShowCloseNotificationChange({ showCloseNotification: true });
-      }
-    }
-  },
+  onCloseAttemp() {
+    if (this.state.index === 1) this.onShowCloseNotificationChange(true);
+  }
 
-  render: ({
-    index,
-    onChangeIndex,
-    showCloseNotification,
-    onShowCloseNotificationChange,
-    onCloseAttemp,
-    ...props
-  }) => (
-    <div {...props}>
-      <Panels
-        index={index}
-        onBack={onCloseAttemp}
-        onApplicationClose={onCloseAttemp}
-      >
-        <MainPanel onChangeIndex={onChangeIndex} />
-        <DashboardPanel
-          onChangeIndex={onChangeIndex}
-          showCloseNotification={showCloseNotification}
-          onShowCloseNotification={onShowCloseNotificationChange}
-        />
-      </Panels>
-    </div>
-  )
-});
+  render() {
+    return (
+      <div {...this.props}>
+        <Panels
+          index={this.state.index}
+          onBack={this.onCloseAttemp}
+          onApplicationClose={this.onCloseAttemp}
+        >
+          <MainPanel onChangeIndex={this.onChangeIndex} />
+          <DashboardPanel
+            onChangeIndex={this.onChangeIndex}
+            showCloseNotification={this.state.showCloseNotification}
+            onShowCloseNotification={this.onShowCloseNotificationChange}
+          />
+        </Panels>
+      </div>
+    );
+  }
+}
 
-export default MoonstoneDecorator(
-  Changeable(
-    {
-      prop: 'index',
-      change: 'onChangeIndex'
-    },
-    Changeable(
-      {
-        prop: 'showCloseNotification',
-        change: 'onShowCloseNotificationChange'
-      },
-      App
-    )
-  )
-);
+export default MoonstoneDecorator(App);

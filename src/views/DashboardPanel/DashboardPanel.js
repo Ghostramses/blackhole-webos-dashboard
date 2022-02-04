@@ -36,7 +36,7 @@ class DashboardPanel extends Component {
     const { onChangeIndex, onShowCloseNotification } = this.props;
     logout()
       .then(() => {
-        onShowCloseNotification({ showCloseNotification: false });
+        onShowCloseNotification(false);
         localStorage.token = undefined; // eslint-disable-line
         localStorage.perms = undefined; //eslint-disable-line
         onChangeIndex(0);
@@ -47,7 +47,7 @@ class DashboardPanel extends Component {
   }
   cancelCloseSession() {
     const { onShowCloseNotification } = this.props;
-    onShowCloseNotification({ showCloseNotification: false });
+    onShowCloseNotification(false);
   }
 
   render() {
