@@ -41,10 +41,13 @@ export default class EventsGraph extends Component {
       this.getEvents();
     }.bind(this);
     const job = new Job(onCallback, 1500);
+    this.eventsGraphJob = job;
     const onFinally = function () {
       job.start();
     };
+
     const xhr = new XMLHttpRequest(); //eslint-disable-line
+    this.eventsGraphXhr = xhr;
     xhr.open('GET', config.mainBackendUrl + '/events_graph');
     xhr.setRequestHeader('token', localStorage.token); //eslint-disable-line
     xhr.onreadystatechange = function () {
@@ -78,10 +81,12 @@ export default class EventsGraph extends Component {
       this.getAliveEvents();
     }.bind(this);
     const job = new Job(onCallback, 1500);
+    this.liveEventsGraphJob = job;
     const onFinally = function () {
       job.start();
     };
     const xhr = new XMLHttpRequest(); //eslint-disable-line
+    this.liveEventsGraphXhr = xhr;
     xhr.open('GET', config.mainBackendUrl + '/events_graph/hard');
     xhr.setRequestHeader('token', localStorage.token); //eslint-disable-line
     xhr.onreadystatechange = function () {
@@ -139,7 +144,25 @@ export default class EventsGraph extends Component {
   }
 
   componentWillUnmount() {
-    clearTimeout(this.timeoutIdClassificatedEvents);
-    clearTimeout(this.timeoutIdAliveEvents);
+    try {
+      this.eventsGraphXhr.abort();
+    } catch (e) {
+      console.error(e);
+    }
+    try {
+      this.eventsGraphJob.stop();
+    } catch (e) {
+      console.error(e);
+    }
+    try {
+      this.liveEventsGraphXhr.abort();
+    } catch (e) {
+      console.error(e);
+    }
+    try {
+      this.liveEventsGraphJob.stop();
+    } catch (e) {
+      console.error(e);
+    }
   }
 }
