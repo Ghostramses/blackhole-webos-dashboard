@@ -87,7 +87,7 @@ export default class CaseCutGraph extends Component {
           focusableScrollbar
           vertical='auto'
           direction='vertical'
-          style={{ minHeight: '57vh' }}
+          style={{ minHeight: '60vh' }}
         >
           <div className={css.tableScroller}>
             <table className={`${css.cutTable} ${turn}`}>
