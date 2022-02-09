@@ -87,17 +87,18 @@ export default class CaseCutGraph extends Component {
           focusableScrollbar
           vertical='auto'
           direction='vertical'
-          style={{ minHeight: '60vh' }}
+          style={{ minHeight: '70vh' }}
         >
           <div className={css.tableScroller}>
             <table className={`${css.cutTable} ${turn}`}>
-              <thead>
+              <thead className={css.tableHeader}>
                 <tr>
                   <th>T.I.</th>
-                  <th style={{ maxWidth: '200px' }}>Corte</th>
+                  <th>Corte</th>
                 </tr>
               </thead>
               <tbody>
+                <tr className={css.spacer} />
                 {chunk.map(item => (
                   <tr key={item.id}>
                     <td>{item.name}</td>

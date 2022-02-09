@@ -12,10 +12,12 @@
       text-align: center;
       margin: 0;
       margin-bottom: 11px;
+      color: #ffffff;
     }
 
     .tableScroller {
-      height: 60vh;
+      position: relative;
+      height: 70vh;
       .cutTable {
         border-radius: 10px;
         color: #333;
@@ -28,6 +30,24 @@
         white-space: nowrap;
         background-color: white;
 
+        .tableHeader {
+          //position: relative;
+
+          & > tr {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            th:first-of-type {
+              width: 262px;
+            }
+            th:last-of-type {
+              width: 291px;
+            }
+          }
+        }
+
         td,
         th {
           text-align: center;
@@ -37,6 +57,13 @@
         td {
           border-right: 1px solid #f8f8f8;
           //font-size: 12px;
+          width: 262px;
+        }
+
+        tbody {
+          .spacer {
+            height: 52px;
+          }
         }
 
         &.morningTable {
