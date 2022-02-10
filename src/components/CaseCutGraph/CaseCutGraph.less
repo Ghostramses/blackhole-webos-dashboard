@@ -15,88 +15,83 @@
       color: #ffffff;
     }
 
+    .tableHeaders {
+      th:first-of-type {
+        width: 262px;
+      }
+      th:last-of-type {
+        width: 291px;
+      }
+    }
+
     .tableScroller {
-      position: relative;
-      height: 70vh;
-      .cutTable {
-        border-radius: 10px;
-        color: #333;
+      height: 65vh;
+    }
+
+    .cutTable {
+      color: #333;
+      //font-size: 12px;
+      font-weight: normal;
+      border: none;
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 100%;
+      white-space: nowrap;
+      background-color: white;
+      //transform: rotate(1turn);
+
+      &.less {
+        width: 524px;
+      }
+
+      td,
+      th {
+        text-align: center;
+        padding: 8px;
+      }
+
+      td {
+        border-right: 1px solid #f8f8f8;
         //font-size: 12px;
-        font-weight: normal;
-        border: none;
-        border-collapse: collapse;
-        width: 100%;
-        max-width: 100%;
-        white-space: nowrap;
-        background-color: white;
+        width: 262px;
+      }
 
-        .tableHeader {
-          //position: relative;
+      tbody {
+        .spacer {
+          height: 52px;
+        }
+      }
 
-          & > tr {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            width: 100%;
-            th:first-of-type {
-              width: 262px;
-            }
-            th:last-of-type {
-              width: 291px;
-            }
-          }
+      &.morningTable {
+        thead th {
+          background-color: #6497d9;
+          color: #f8f8f8;
         }
 
-        td,
-        th {
-          text-align: center;
-          padding: 8px;
+        tr {
+          background-color: #e9e6f5;
+        }
+      }
+
+      &.eveningTable {
+        thead th {
+          background-color: #ffa229;
+          color: #f8f8f8;
         }
 
-        td {
-          border-right: 1px solid #f8f8f8;
-          //font-size: 12px;
-          width: 262px;
+        tr {
+          background-color: #f5d9bc;
+        }
+      }
+
+      &.nightTable {
+        thead th {
+          background-color: #90ed7d;
+          color: #f8f8f8;
         }
 
-        tbody {
-          .spacer {
-            height: 52px;
-          }
-        }
-
-        &.morningTable {
-          thead th {
-            background-color: #6497d9;
-            color: #f8f8f8;
-          }
-
-          tr {
-            background-color: #e9e6f5;
-          }
-        }
-
-        &.eveningTable {
-          thead th {
-            background-color: #ffa229;
-            color: #f8f8f8;
-          }
-
-          tr {
-            background-color: #f5d9bc;
-          }
-        }
-
-        &.nightTable {
-          thead th {
-            background-color: #90ed7d;
-            color: #f8f8f8;
-          }
-
-          tr {
-            background-color: #cee0c5;
-          }
+        tr {
+          background-color: #cee0c5;
         }
       }
     }

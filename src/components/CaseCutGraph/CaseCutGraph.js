@@ -11,10 +11,16 @@ export default class CaseCutGraph extends Component {
     this.state = {
       morning: [],
       evening: [],
-      night: []
+      night: [],
+      morningRef: 0,
+      eveningRef: 0,
+      nightRef: 0
     };
     this.getCaseCut = this.getCaseCut.bind(this);
     this.renderTables = this.renderTables.bind(this);
+    this.morningRef = null;
+    this.eveningRef = null;
+    this.nightRef = null;
   }
 
   componentDidMount() {
@@ -64,41 +70,112 @@ export default class CaseCutGraph extends Component {
     return (
       <div>
         <div className={css.caseCutGraph}>
-          {this.renderTables(morning, 'Matutino', css.morningTable, 'Matutino')}
+          {this.renderTables(
+            morning,
+            'Matutino',
+            css.morningTable,
+            'Matutino',
+            'morningRef'
+          )}
 
           {this.renderTables(
             evening,
             'Vespertino',
             css.eveningTable,
-            'Vespertino'
+            'Vespertino',
+            'eveningRef'
           )}
 
-          {this.renderTables(night, 'Nocturno', css.nightTable, 'Nocturno')}
+          {this.renderTables(
+            night,
+            'Nocturno',
+            css.nightTable,
+            'Nocturno',
+            'nightRef'
+          )}
         </div>
       </div>
     );
   }
 
-  renderTables(chunk, chunkName, turn = '', key) {
+  /*componentWillUpdate(nextProps, nextState) {
+    console.log('Actualizando: ', this.morningRef.offsetWidth); //eslint-disabled-line
+    return null;
+  }*/
+  /*
+  componentDidUpdate(props, state) {
+    //eslint-disable-next-line
+    if (this.morningRef?.offsetWitdh) {
+      console.log('Llamando', this.morningRef.offsetWitdh); //eslint-disabled-line
+      this.setState({
+        morningRef: this.morningRef.offsetWitdh //eslint-disabled-line
+      });
+    }
+    //eslint-disable-next-line
+    if (this.eveningRef?.offsetWitdh) {
+      this.setState({
+        eveningRef: this.eveningRef.offsetWitdh //eslint-disabled-line
+      });
+    }
+    //eslint-disable-next-line
+    if (this.nightRef?.offsetWitdh) {
+      this.setState({
+        nightRef: this.nightRef.offsetWitdh //eslint-disabled-line
+      });
+    }
+  }
+*/
+
+  componentDidUpdate(prevProps, prevState) {
+    //eslint-disable-next-line
+    if (prevState.morningRef !== this.morningRef.offsetWidth) {
+      this.setState({ morningRef: this.morningRef.offsetWidth }); //eslint-disabled-line
+    }
+
+    //eslint-disable-next-line
+    if (prevState.eveningRef !== this.eveningRef.offsetWidth) {
+      this.setState({ eveningRef: this.eveningRef.offsetWidth }); //eslint-disabled-line
+    }
+
+    //eslint-disable-next-line
+    if (prevState.nightRef !== this.nightRef.offsetWidth) {
+      this.setState({ nightRef: this.nightRef.offsetWidth }); //eslint-disabled-line
+    }
+  }
+  renderTables(chunk, chunkName, turn = '', key, ref) {
     return (
       <div key={key} className={css.tableContainer}>
         <h3 className={css.chunkName}>{chunkName}</h3>
+
+        <table
+          className={`${css.cutTable} ${turn} ${
+            this.state[ref] < 584 ? css.less : ''
+          }`}
+        >
+          <thead className={`${css.tableHeaders} ${turn}`}>
+            <tr>
+              <th>T.I.</th>
+              <th>Corte</th>
+            </tr>
+          </thead>
+        </table>
+
         <Scroller
           focusableScrollbar
           vertical='auto'
           direction='vertical'
-          style={{ minHeight: '70vh' }}
+          style={{ minHeight: '65vh' }}
         >
-          <div className={css.tableScroller}>
+          <div
+            className={css.tableScroller}
+            ref={div => {
+              this[ref] = div;
+              //console.log(div?.offsetWidth); //eslint-disable-line
+              //this.setState({ [ref]: div?.offsetWidth || this.state[ref] }); //eslint-disable-line
+            }}
+          >
             <table className={`${css.cutTable} ${turn}`}>
-              <thead className={css.tableHeader}>
-                <tr>
-                  <th>T.I.</th>
-                  <th>Corte</th>
-                </tr>
-              </thead>
               <tbody>
-                <tr className={css.spacer} />
                 {chunk.map(item => (
                   <tr key={item.id}>
                     <td>{item.name}</td>
