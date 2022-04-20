@@ -72,6 +72,7 @@ export default class EventsGraph extends Component {
   getAliveEvents() {
     const onOk = function (response) {
       const [unclassified, alive] = response.items;
+      localStorage.token = response.token; // eslint-disable-line
       this.setState({
         noClassified: unclassified.total,
         alive: alive.total
