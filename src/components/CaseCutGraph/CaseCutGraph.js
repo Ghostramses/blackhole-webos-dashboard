@@ -32,6 +32,7 @@ export default class CaseCutGraph extends Component {
       const morning = response.items[0].morning;
       const evening = response.items[1].evening;
       const night = response.items[2].night;
+      localStorage.token = response.token; // eslint-disable-line
       this.setState({ morning, evening, night });
     }.bind(this);
     const onCallback = function () {
